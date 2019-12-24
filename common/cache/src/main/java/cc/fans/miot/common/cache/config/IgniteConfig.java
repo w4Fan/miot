@@ -23,17 +23,10 @@ import org.springframework.context.annotation.Configuration;
 public class IgniteConfig {
 
   @Autowired
-  private DeviceConfig deviceConfig;
-
-  @Autowired
   private ApplicationContext context;
 
   @Bean
   public Ignite getInstance() throws IgniteCheckedException {
-//    return Ignition.start();
-    Ignite ignite = IgniteSpring.start(new IgniteConfiguration(), context);
-    IgniteCache<UUID, Device> devices = ignite.createCache(deviceConfig.getDeviceCacheConfig());
-    devices.loadCache(null);
-    return ignite;
+    return IgniteSpring.start(new IgniteConfiguration(), context);
   }
 }
